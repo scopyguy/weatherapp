@@ -59,208 +59,211 @@ class _WeatherScreenState extends State<WeatherScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: 10,
-                      sigmaY: 10,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            '$temp K',
-                            style: const TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
+      body: temp == 0
+          ? const CircularProgressIndicator()
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: 10,
+                            sigmaY: 10,
                           ),
-                          const SizedBox(
-                            height: 10,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  '$temp K',
+                                  style: const TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Icon(
+                                  Icons.cloud,
+                                  size: 70,
+                                ),
+                                const Text(
+                                  'Rain',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
                           ),
-                          const Icon(
-                            Icons.cloud,
-                            size: 70,
-                          ),
-                          const Text(
-                            'Rain',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            const Text(
-              'Weather Forecast',
-              style: TextStyle(fontSize: 24),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  HourlyForecastItem(
-                    time: '03:00',
-                    icon: Icons.cloud,
-                    temperature: '301.22',
+                  const SizedBox(
+                    height: 15,
                   ),
-                  HourlyForecastItem(
-                    time: '05:00',
-                    icon: Icons.sunny,
-                    temperature: '301.40',
+                  const Text(
+                    'Weather Forecast',
+                    style: TextStyle(fontSize: 24),
                   ),
-                  HourlyForecastItem(
-                    time: '07:36',
-                    icon: Icons.cloud,
-                    temperature: '301.58',
+                  const SizedBox(
+                    height: 16,
                   ),
-                  HourlyForecastItem(
-                    time: '09:00',
-                    icon: Icons.sunny,
-                    temperature: '302.19',
+                  const SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        HourlyForecastItem(
+                          time: '03:00',
+                          icon: Icons.cloud,
+                          temperature: '301.22',
+                        ),
+                        HourlyForecastItem(
+                          time: '05:00',
+                          icon: Icons.sunny,
+                          temperature: '301.40',
+                        ),
+                        HourlyForecastItem(
+                          time: '07:36',
+                          icon: Icons.cloud,
+                          temperature: '301.58',
+                        ),
+                        HourlyForecastItem(
+                          time: '09:00',
+                          icon: Icons.sunny,
+                          temperature: '302.19',
+                        ),
+                        HourlyForecastItem(
+                          time: '12:20',
+                          icon: Icons.cloud,
+                          temperature: '302.25',
+                        ),
+                        HourlyForecastItem(
+                          time: '15:00',
+                          icon: Icons.sunny,
+                          temperature: '302.45',
+                        ),
+                      ],
+                    ),
                   ),
-                  HourlyForecastItem(
-                    time: '12:20',
-                    icon: Icons.cloud,
-                    temperature: '302.25',
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Addtional Information',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  HourlyForecastItem(
-                    time: '15:00',
-                    icon: Icons.sunny,
-                    temperature: '302.45',
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 250,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18)),
+                          child: const Column(
+                            children: [
+                              Text(
+                                'Humidity',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Icon(
+                                Icons.water_drop,
+                                size: 75,
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                '85',
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          width: 250,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18)),
+                          child: const Column(
+                            children: [
+                              Text(
+                                'Wind Speed',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Icon(
+                                Icons.air,
+                                size: 75,
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                '95',
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          width: 250,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18)),
+                          child: const Column(
+                            children: [
+                              Text(
+                                'Pressure',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Icon(
+                                Icons.umbrella,
+                                size: 75,
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                '108,3',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Addtional Information',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    width: 250,
-                    padding: const EdgeInsets.all(8.0),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(18)),
-                    child: const Column(
-                      children: [
-                        Text(
-                          'Humidity',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Icon(
-                          Icons.water_drop,
-                          size: 75,
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          '85',
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    width: 250,
-                    padding: const EdgeInsets.all(8.0),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(18)),
-                    child: const Column(
-                      children: [
-                        Text(
-                          'Wind Speed',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Icon(
-                          Icons.air,
-                          size: 75,
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          '95',
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    width: 250,
-                    padding: const EdgeInsets.all(8.0),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(18)),
-                    child: const Column(
-                      children: [
-                        Text(
-                          'Pressure',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Icon(
-                          Icons.umbrella,
-                          size: 75,
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          '108,3',
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
