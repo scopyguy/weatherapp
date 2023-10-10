@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -10,24 +12,14 @@ class InstertitialAdPage extends StatefulWidget {
 
 class _InstertitialAdPageState extends State<InstertitialAdPage> {
   InterstitialAd? _interstitialAd;
-  @override
-  Widget build(BuildContext context) {
-    String BannerAd = platform == TargetPlatform.iOS ? "" : "";
 
-    final adUnitId = instertitialAd;
-    _interstitialAd?.show();
-    _interstitialAd;
-  
-    class BannerExampleState extends State<BannerExample> {
-  BannerAd? _bannerAd:
+  late BannerAd _bannerAd;
   bool _isLoaded = false;
 
-
   final adUnitId = Platform.isAndroid
-    ? 'ca-app-pub-3940256099942544/6300978111'
-    : 'ca-app-pub-3940256099942544/2934735716';
+      ? 'ca-app-pub-3940256099942544/6300978111'
+      : 'ca-app-pub-3940256099942544/2934735716';
 
-  
   void loadAd() {
     _bannerAd = BannerAd(
       adUnitId: adUnitId,
@@ -40,59 +32,20 @@ class _InstertitialAdPageState extends State<InstertitialAdPage> {
             _isLoaded = true;
           });
         },
-
         onAdFailedToLoad: (ad, err) {
-          debugPrint('BannerAd failed to load: $error');
-    
+          debugPrint('BannerAd failed to load: $err');
+
           ad.dispose();
         },
       ),
     )..load();
   }
-};
-@override
-    class InterstitialExampleState extends State<InterstitialExample> {
-  InterstitialAd? _interstitialAd;
 
-
-  final adUnitId = Platform.isAndroid
-    ? 'ca-app-pub-3940256099942544/1033173712'
-    : 'ca-app-pub-3940256099942544/4411468910';
-
-  void loadAd() {
-    InterstitialAd.load(
-        adUnitId: adUnitId,
-        request: const AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (ad) {
-             ad.fullScreenContentCallback = FullScreenContentCallback(
-                onAdShowedFullScreenContent: (ad) {},
-                onAdImpression: (ad) {},
-                onAdFailedToShowFullScreenContent: (ad, err),
-                  ad.dispose();
-                  loadInstertitial(); 
-                },
-                onAdDismissedFullScreenContent: (ad) {
-                  ad.dispose();
-                  loadInstertitial();
-                },
-                onAdClicked: (ad) {});
-
-            debugPrint('$ad loaded.');
-            _interstitialAd = ad;
-          },
-          onAdFailedToLoad: (LoadAdError error) {
-            debugPrint('InterstitialAd failed to load: $error');
-          },
-        ));
-  }
-};
-    return const Placeholder();
-  }
-
+  @override
   void initState() {
     super.initState();
     loadInstertitial();
+    loadAd();
   }
 
   void loadInstertitial() {
@@ -112,5 +65,19 @@ class _InstertitialAdPageState extends State<InstertitialAdPage> {
             debugPrint('InterstitialAd failed to load: $error');
           },
         ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoaded
+        ? ColoredBox(
+            color: Colors.transparent,
+            child: SizedBox(
+              height: _bannerAd.size.height.toDouble(),
+              width: _bannerAd.size.width.toDouble(),
+              child: AdWidget(ad: _bannerAd),
+            ),
+          )
+        : const SizedBox.shrink();
   }
 }
